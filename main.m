@@ -91,11 +91,12 @@ drawRod(C,P,pb,s,a);
           six = si(1);
           siy = si(2);
           siz = si(3);
-          X = [pbix+ci*a,px+six];
-          Y = [pbiy+ci*a,py+siy];
-          Z = [pbiz+ci*a,pz+siz];
-          plot3(X,Y,Z,'b','LineWidth', 5);          
+          X(n_slider,:) = [pbix+ci*a(1),px+six];
+          Y(n_slider,:) = [pbiy+ci*a(2),py+siy];
+          Z(n_slider,:) = [pbiz+ci*a(3),pz+siz];
+          %figure(n_slider);
         end
+        plot3(X,Y,Z,'b','LineWidth', 5);
     end
 %% draw disc
     function drawDisc(P,R)
