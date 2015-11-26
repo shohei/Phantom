@@ -96,10 +96,11 @@ drawRod(C,P,pb,s,a);
           Z(n_slider,:) = [pbiz+ci*a(3),pz+siz];
           %figure(n_slider);
         end
+        clf(1);
         for n_slider=1:6
-            x= X(n_slider,:)
-            y= Y(n_slider,:)
-            z= Z(n_slider,:)
+            x = X(n_slider,:);
+            y = Y(n_slider,:);
+            z = Z(n_slider,:);
             plot3(x,y,z,'b','LineWidth', 5);
             hold on;
         end
