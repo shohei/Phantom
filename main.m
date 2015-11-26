@@ -8,28 +8,28 @@ Radius = 0.1;
 Height = 0.01;
 SideCount = 20;
 n_side = SideCount;
-P = [0,0,1]; % Position Vector of the end effector
+P = [0,0,1.3]; % Position Vector of the end effector
 D = 0.1; % Distance between 2 slider of the pair
-lc = 0.5;
-rb = 1;
-re = 0.2;
-th = acos(D/(2*rb));
-th2 = acos(D/(2*re));
+lc = 1.1; % Length of rod
+rb = 1; % Distance between origin and actuator on X-Y plane
+re = 0.2; % Radius of table
+th = asin(D/(2*rb)); % theta1: angle of first actuator link
+th2 = asin(D/(2*re)); % theta2: angle of first end effector link
 pb = [
-    cos(th),sin(th),0;
-    cos(pi-th),sin(pi-th),0;
-    cos(pi/3+th),sin(pi/3+th),0;
-    cos(5*pi/6-th),sin(5*pi/6-th),0;
-    cos(3*pi/2+th),sin(3*pi/2+th),0;
-    cos(pi/2-th),sin(pi/2-th),0;
+    rb*cos(th),rb*sin(th),0;
+    rb*cos(-th),rb*sin(-th),0;
+    rb*cos(2*pi/3+th),rb*sin(2*pi/3+th),0
+    rb*cos(2*pi/3-th),rb*sin(2*pi/3-th),0;
+    rb*cos(4*pi/3+th),rb*sin(4*pi/3+th),0;
+    rb*cos(4*pi/3-th),rb*sin(4*pi/3-th),0;
     ];
 s = [
-    cos(th2),sin(th2),0;
-    cos(pi-th2),sin(pi-th2),0;
-    cos(pi/3+th2),sin(pi/3+th2),0;
-    cos(5*pi/6-th2),sin(5*pi/6-th2),0;
-    cos(3*pi/2+th2),sin(3*pi/2+th2),0;
-    cos(pi/2-th2),sin(pi/2-th2),0;
+    re*cos(th2),re*sin(th2),0;
+    re*cos(-th2),re*sin(-th2),0;
+    re*cos(2*pi/3+th2),re*sin(2*pi/3+th2),0;
+    re*cos(2*pi/3-th2),re*sin(2*pi/3-th2),0;
+    re*cos(4*pi/3+th2),re*sin(4*pi/3+th2),0;
+    re*cos(4*pi/3-th2),re*sin(4*pi/3-th2),0;
     ];
 phi = 0; % rotation around X axis
 theta = 0; % rotation around Y axis
@@ -69,7 +69,7 @@ drawRod(C,P,pb,s,a);
         C = [c1,c2,c3,c4,c5,c6];
         %}       
         for n_slider=1:6
-            Li =  L(n_slider,:)
+            Li =  L(n_slider,:);
             lxi = Li(1);
             lyi = Li(2);
             lzi = Li(3);
@@ -83,7 +83,7 @@ drawRod(C,P,pb,s,a);
           pbix = pbi(1);
           pbiy = pbi(2);
           pbiz = pbi(3);
-          ci = C(n_slider);
+          ci = C(n_slider); %dump ci
           px = P(1);
           py = P(2);
           pz = P(3);
@@ -96,7 +96,13 @@ drawRod(C,P,pb,s,a);
           Z(n_slider,:) = [pbiz+ci*a(3),pz+siz];
           %figure(n_slider);
         end
-        plot3(X,Y,Z,'b','LineWidth', 5);
+        for n_slider=1:6
+            x= X(n_slider,:)
+            y= Y(n_slider,:)
+            z= Z(n_slider,:)
+            plot3(x,y,z,'b','LineWidth', 5);
+            hold on;
+        end
     end
 %% draw disc
     function drawDisc(P,R)
