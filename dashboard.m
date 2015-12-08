@@ -27,11 +27,11 @@ function varargout = dashboard(varargin)
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
-                   'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @dashboard_OpeningFcn, ...
-                   'gui_OutputFcn',  @dashboard_OutputFcn, ...
-                   'gui_LayoutFcn',  [] , ...
-                   'gui_Callback',   []);
+    'gui_Singleton',  gui_Singleton, ...
+    'gui_OpeningFcn', @dashboard_OpeningFcn, ...
+    'gui_OutputFcn',  @dashboard_OutputFcn, ...
+    'gui_LayoutFcn',  [] , ...
+    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
     gui_State.gui_Callback = str2func(varargin{1});
 end
@@ -63,7 +63,7 @@ guidata(hObject, handles);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = dashboard_OutputFcn(hObject, eventdata, handles) 
+function varargout = dashboard_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -169,25 +169,31 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% P = [0.1,0.2,1.1]; % Position Vector of the end effector    
+
+% P = [0.1,0.2,1.1]; % Position Vector of the end effector
 % phi = pi/12; % rotation around X axis
 % theta = pi/12; % rotation around Y axis
 % psi = pi/16; % rotation around Z axis
 % main(P,phi,theta,psi);
 n_time = 20;
 for i_time=1:n_time
-    P = [0.1-i_time/200,0.2+i_time/200,1.1]; % Position Vector of the end effector    
+    P = [0.1-i_time/200,0.2+i_time/200,1.1]; % Position Vector of the end effector
     phi = pi/12*(i_time/10); % rotation around X axis
     theta = pi/12*(i_time/10); % rotation around Y axis
-    psi = pi/16*(i_time/10); % rotation around Z axis  
+    psi = pi/16*(i_time/10); % rotation around Z axis
     main(P,phi,theta,psi);
-    msg = sprintf('%d frame elapsed',i_time);
+    msg = sprintf(strcat('%d frame elapsed\n',...
+                   'x-angle: %.2f.[rad]\n',...
+                   'y-angle: %.2f.[rad]\n',...
+                   'z-angle: %.2f.[rad]\n'),i_time,phi,theta,psi);
+
     uicontrol('Style', 'text',...
-       'String', msg,... %replace something with the text you want
-       'Units','normalized',...
-       'FontSize', 10,....
+        'String', msg,... %replace something with the text you want
+        'Units','normalized',...
+        'FontSize', 10,....
         'FontName','OCR A Std',...
-    'Position', [0.05 0.9 0.2 0.05]); 
-    %text(1,0,2,num2str(i_time),'HorizontalAlignment','left','FontSize',15);
+        'HorizontalAlignment','left',...
+        'Max',5,...
+        'Position', [0.02 0.8 0.2 0.15]);
     drawnow;
 end
