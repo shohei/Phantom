@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 08-Dec-2015 19:02:08
+% Last Modified by GUIDE v2.5 08-Dec-2015 19:28:31
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -181,13 +181,13 @@ for i_time=1:n_time
     theta = pi/12*(i_time/10); % rotation around Y axis
     psi = pi/16*(i_time/10); % rotation around Z axis  
     main(P,phi,theta,psi);
-    msg = sprintf('%d frame lapsed',i_time);
+    msg = sprintf('%d frame elapsed',i_time);
     uicontrol('Style', 'text',...
        'String', msg,... %replace something with the text you want
        'Units','normalized',...
-       'FontSize', 14,....
-       'Position', [0.05 0.9 0.2 0.05]); 
+       'FontSize', 10,....
+        'FontName','OCR A Std',...
+    'Position', [0.05 0.9 0.2 0.05]); 
     %text(1,0,2,num2str(i_time),'HorizontalAlignment','left','FontSize',15);
     drawnow;
 end
-
