@@ -158,9 +158,9 @@ drawSliders();
         view([-37.5, 30]);
         camlight;
         grid on;
-        %         xlim([-0.2,0.2]);
-        %         ylim([-0.2,0.2]);
-        %         zlim([-0,0.4]);
+        xlim([-1,1]);
+        ylim([-1,1]);
+        zlim([0,1.5]);
     end
 %% draw sliders
     function drawSliders()
