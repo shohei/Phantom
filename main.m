@@ -50,6 +50,18 @@ R = [
     sin(phi)*cos(theta),sin(phi)*sin(theta)*sin(psi)+cos(phi)*cos(psi),sin(phi)*sin(theta)*cos(psi)-cos(phi)*sin(psi);
     -sin(theta),cos(theta)*sin(psi),cos(theta)*cos(psi);
     ]; % Rotation matrix (!!! is not Euler angle !!!)
+
+% R2_1 = [1, 0, 0;
+%     0, cos(phi), -sin(phi);
+%     0, sin(phi), cos(phi)];
+% R2_2 = [cos(theta), 0, sin(theta);
+%     0, 1, 0;
+%     -sin(theta), 0, cos(theta)];
+% R2_3 = [cos(theta), -sin(theta), 0;
+%     sin(theta), cos(theta), 0;
+%     0, 0, 1];
+% R2 = R2_1*R2_2*R2_3;
+s = s*R';
 a = [0,0,1];
 figure(1);
 L = computeLinkPos(P,R,s,pb);
@@ -96,7 +108,7 @@ drawSliders();
             pbix = pbi(1);
             pbiy = pbi(2);
             pbiz = pbi(3);
-            ci = C(n_slider) %dump ci
+            ci = C(n_slider); %dump ci
             px = P(1);
             py = P(2);
             pz = P(3);
@@ -107,6 +119,8 @@ drawSliders();
             X(n_slider,:) = [pbix+ci*a(1),px+six];
             Y(n_slider,:) = [pbiy+ci*a(2),py+siy];
             Z(n_slider,:) = [pbiz+ci*a(3),pz+siz];
+            lenrod = sqrt(((pbix+ci*a(1))-(px+six))^2+((pbiy+ci*a(2))-(py+siy))^2+((pbiz+ci*a(3))-(pz+siz))^2)
+%            sprintf('ci %.2f. Rod %d :%.2f.',n_slider, lenrod);
             %figure(n_slider);
         end
         clf(1);
@@ -131,7 +145,9 @@ drawSliders();
         end
         n_ver = 2*n_side;        
         for i_ver=1:n_ver
-            VertexData(i_ver,:) = P + VertexData_0(i_ver,:)*R';
+             VertexData(i_ver,:) = P + VertexData_0(i_ver,:)*R';
+%             VertexData(i_ver,:) = P + VertexData_0(i_ver,:)*R2';
+%             VertexData(i_ver,:) = P + VertexData_0(i_ver,:)*R2;
         end
         
         for i_pat=1:n_side-1
@@ -144,7 +160,7 @@ drawSliders();
             PatchData1_Z(:,i_pat) = VertexData(Index_Patch1(i_pat,:),3);
         end
         figure(1);
-        h1 = patch(PatchData1_X,PatchData1_Y,PatchData1_Z,'y');
+        h1 = patch(PatchData1_X,PatchData1_Y,PatchData1_Z,'y');% side patch
         set(h1,'FaceLighting','phong','EdgeLighting','phong');
         Index_Patch2(1,:) = [1:n_side];
         Index_Patch2(2,:) = [n_side+1:2*n_side];
@@ -153,7 +169,7 @@ drawSliders();
             PatchData2_Y(:,i_pat) = VertexData(Index_Patch2(i_pat,:),2);
             PatchData2_Z(:,i_pat) = VertexData(Index_Patch2(i_pat,:),3);
         end
-        h2 = patch(PatchData2_X,PatchData2_Y,PatchData2_Z,'y');
+        h2 = patch(PatchData2_X,PatchData2_Y,PatchData2_Z,'y');% top/bottom patch
         set(h2,'FaceLighting','phong','EdgeLighting','phong');
         xlabel('x','FontSize',14);
         ylabel('y','FontSize',14);
@@ -167,7 +183,6 @@ drawSliders();
         %         ylim([-0.2,0.2]);
         %         zlim([-0,0.4]);
     end
-
 %% draw sliders
     function drawSliders()
         for n_slider=1:6
