@@ -51,7 +51,7 @@ R = [
     ]; % Rotation matrix (!!! is not Euler angle !!!)
 s = s_local*R';
 a = [0,0,1];
-figure(1);
+%figure(1);
 L = computeLinkPos(P,R,s,pb);
 C = computeActuation(L,lc);
 drawRod(C,P,pb,s,a);
@@ -108,7 +108,9 @@ drawSliders();
             Y(n_slider,:) = [pbiy+ci*a(2),py+siy];
             Z(n_slider,:) = [pbiz+ci*a(3),pz+siz];
         end
-        clf(1);
+        %clf(1);
+        cla;
+        %cla(axes);
         for n_slider=1:6
             x = X(n_slider,:);
             y = Y(n_slider,:);
@@ -136,7 +138,7 @@ drawSliders();
             PatchData1_Y(:,i_pat) = VertexData(Index_Patch1(i_pat,:),2);
             PatchData1_Z(:,i_pat) = VertexData(Index_Patch1(i_pat,:),3);
         end
-        figure(1);
+        %figure(1);
         h1 = patch(PatchData1_X,PatchData1_Y,PatchData1_Z,'y');% side patch
         set(h1,'FaceLighting','phong','EdgeLighting','phong');
         Index_Patch2(1,:) = [1:n_side];
