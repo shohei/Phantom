@@ -11,14 +11,15 @@ n_side = SideCount;
 P = [0,0,1.3]; % Position Vector of the end effector
 D = 0.1; % Distance between 2 slider of the pair
 lc = 1.1; % Length of rod
+ls = 1.0;
 rb = 1; % Distance between origin and actuator on X-Y plane
 re = 0.2; % Radius of table
-th = asin(D/(2*rb)); % theta1: angle of first actuator link
-th2 = asin(D/(2*re)); % theta2: angle of first end effector link
+th = asin(D/(2*rb)); % theta1: angle (linear actuator)
+th2 = asin(D/(2*re)); % theta2: angle (end effector)
 pb = [
     rb*cos(th),rb*sin(th),0;
     rb*cos(-th),rb*sin(-th),0;
-    rb*cos(2*pi/3+th),rb*sin(2*pi/3+th),0
+    rb*cos(2*pi/3+th),rb*sin(2*pi/3+th),0;
     rb*cos(2*pi/3-th),rb*sin(2*pi/3-th),0;
     rb*cos(4*pi/3+th),rb*sin(4*pi/3+th),0;
     rb*cos(4*pi/3-th),rb*sin(4*pi/3-th),0;
@@ -31,6 +32,14 @@ s = [
     re*cos(4*pi/3+th2),re*sin(4*pi/3+th2),0;
     re*cos(4*pi/3-th2),re*sin(4*pi/3-th2),0;
     ];
+sliders = [
+    rb*cos(th),rb*sin(th),ls;
+    rb*cos(-th),rb*sin(-th),ls;
+    rb*cos(2*pi/3+th),rb*sin(2*pi/3+th),ls
+    rb*cos(2*pi/3-th),rb*sin(2*pi/3-th),ls;
+    rb*cos(4*pi/3+th),rb*sin(4*pi/3+th),ls;
+    rb*cos(4*pi/3-th),rb*sin(4*pi/3-th),ls;
+    ];
 phi = 0; % rotation around X axis
 theta = 0; % rotation around Y axis
 psi = 0; % rotation around Z axis
@@ -40,10 +49,12 @@ R = [
     -sin(theta),cos(theta)*sin(psi),cos(theta)*cos(psi);
     ]; % Rotation matrix (!!! is not Euler angle !!!)
 a = [0,0,1];
+figure(1);
 L = computeLinkPos(P,R,s,pb);
 C = computeActuation(L,lc);
 drawRod(C,P,pb,s,a);
-%drawDisc(P,R);
+drawDisc(P,R);
+drawSliders();
 %% compute position vector of rod end of end effector
     function L = computeLinkPos(P,R,s,pb)
         % L = p+R*s-pb;
@@ -67,7 +78,7 @@ drawRod(C,P,pb,s,a);
         Li = [lxi,lyi,lzi];
         ci = lzi - sqrt(lc^2-lxi^2-lyi^2);
         C = [c1,c2,c3,c4,c5,c6];
-        %}       
+        %}
         for n_slider=1:6
             Li =  L(n_slider,:);
             lxi = Li(1);
@@ -79,22 +90,22 @@ drawRod(C,P,pb,s,a);
 %% draw rods
     function drawRod(C,P,pb,s,a)
         for n_slider=1:6
-          pbi = pb(n_slider,:);
-          pbix = pbi(1);
-          pbiy = pbi(2);
-          pbiz = pbi(3);
-          ci = C(n_slider); %dump ci
-          px = P(1);
-          py = P(2);
-          pz = P(3);
-          si = s(n_slider,:);
-          six = si(1);
-          siy = si(2);
-          siz = si(3);
-          X(n_slider,:) = [pbix+ci*a(1),px+six];
-          Y(n_slider,:) = [pbiy+ci*a(2),py+siy];
-          Z(n_slider,:) = [pbiz+ci*a(3),pz+siz];
-          %figure(n_slider);
+            pbi = pb(n_slider,:);
+            pbix = pbi(1);
+            pbiy = pbi(2);
+            pbiz = pbi(3);
+            ci = C(n_slider) %dump ci
+            px = P(1);
+            py = P(2);
+            pz = P(3);
+            si = s(n_slider,:);
+            six = si(1);
+            siy = si(2);
+            siz = si(3);
+            X(n_slider,:) = [pbix+ci*a(1),px+six];
+            Y(n_slider,:) = [pbiy+ci*a(2),py+siy];
+            Z(n_slider,:) = [pbiz+ci*a(3),pz+siz];
+            %figure(n_slider);
         end
         clf(1);
         for n_slider=1:6
@@ -105,6 +116,7 @@ drawRod(C,P,pb,s,a);
             hold on;
         end
     end
+
 %% draw disc
     function drawDisc(P,R)
         for i_ver=1:n_side
@@ -137,12 +149,25 @@ drawRod(C,P,pb,s,a);
         zlabel('z','FontSize',14);
         set(gca,'FontSize',14);
         axis vis3d equal;
-        view([-37.5, 30]);
+        %         view([-37.5, 30]);
         camlight;
         grid on;
-        xlim([-0.2,0.2]);
-        ylim([-0.2,0.2]);
-        zlim([-0,0.4]);
+        %         xlim([-0.2,0.2]);
+        %         ylim([-0.2,0.2]);
+        %         zlim([-0,0.4]);
     end
+
+%% draw sliders
+    function drawSliders()
+        for n_slider=1:6
+            x = [pb(n_slider,1),sliders(n_slider,1)];
+            y = [pb(n_slider,2),sliders(n_slider,2)];
+            z = [pb(n_slider,3),sliders(n_slider,3)];
+            plot3(x,y,z,'r','LineWidth', 5);
+            hold on;
+        end
+    end
+
+
 end
 
