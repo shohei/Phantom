@@ -180,7 +180,14 @@ for i_time=1:n_time
     phi = pi/12*(i_time/10); % rotation around X axis
     theta = pi/12*(i_time/10); % rotation around Y axis
     psi = pi/16*(i_time/10); % rotation around Z axis  
-    main(P,phi,theta,psi);    
+    main(P,phi,theta,psi);
+    msg = sprintf('%d frame lapsed',i_time);
+    uicontrol('Style', 'text',...
+       'String', msg,... %replace something with the text you want
+       'Units','normalized',...
+       'FontSize', 14,....
+       'Position', [0.05 0.9 0.2 0.05]); 
+    %text(1,0,2,num2str(i_time),'HorizontalAlignment','left','FontSize',15);
     drawnow;
 end
 
