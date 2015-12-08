@@ -4,16 +4,17 @@
 function main
 clear;
 clear all;
-Radius = 0.1;
-Height = 0.01;
-SideCount = 20;
-n_side = SideCount;
-P = [0,0,1.3]; % Position Vector of the end effector
-D = 0.1; % Distance between 2 slider of the pair
+P = [0.1,0.2,1.1]; % Position Vector of the end effector
+% D = 0.1; % Distance between 2 slider of the pair
+D = 0.3; % Distance between 2 slider of the pair
 lc = 1.1; % Length of rod
 ls = 1.0;
 rb = 1; % Distance between origin and actuator on X-Y plane
-re = 0.2; % Radius of table
+re = 0.4; % Radius of table
+Radius = re;
+Height = 0.01;
+SideCount = 20;
+n_side = SideCount;
 th = asin(D/(2*rb)); % theta1: angle (linear actuator)
 th2 = asin(D/(2*re)); % theta2: angle (end effector)
 pb = [
@@ -40,9 +41,10 @@ sliders = [
     rb*cos(4*pi/3+th),rb*sin(4*pi/3+th),ls;
     rb*cos(4*pi/3-th),rb*sin(4*pi/3-th),ls;
     ];
-phi = 0; % rotation around X axis
-theta = 0; % rotation around Y axis
-psi = 0; % rotation around Z axis
+phi = pi/24; % rotation around X axis
+theta = pi/12; % rotation around Y axis
+psi = pi/16; % rotation around Z axis
+
 R = [
     cos(phi)*cos(theta),cos(phi)*sin(theta)*sin(psi)-sin(phi)*cos(psi),cos(phi)*sin(theta)*cos(psi)+sin(phi)*sin(psi);
     sin(phi)*cos(theta),sin(phi)*sin(theta)*sin(psi)+cos(phi)*cos(psi),sin(phi)*sin(theta)*cos(psi)-cos(phi)*sin(psi);
@@ -119,10 +121,19 @@ drawSliders();
 
 %% draw disc
     function drawDisc(P,R)
+        %         for i_ver=1:n_side
+        %             VertexData(i_ver,:) =[Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),0];
+        %             VertexData(n_side+i_ver,:)=[Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),Height];
+        %         end
         for i_ver=1:n_side
-            VertexData(i_ver,:) =[Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),0];
-            VertexData(n_side+i_ver,:)=[Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),Height];
+            VertexData_0(i_ver,:) = [Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),0];
+            VertexData_0(n_side+i_ver,:) = [Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),Height];
         end
+        n_ver = 2*n_side;        
+        for i_ver=1:n_ver
+            VertexData(i_ver,:) = P + VertexData_0(i_ver,:)*R';
+        end
+        
         for i_pat=1:n_side-1
             Index_Patch1(i_pat,:) = [i_pat,i_pat+1,i_pat+1+n_side,i_pat+n_side];
         end
@@ -167,7 +178,6 @@ drawSliders();
             hold on;
         end
     end
-
 
 end
 
