@@ -111,28 +111,6 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 %set(hObject,'String',num2str(handles.D));
 
-function edit2_Callback(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit2 as text
-%        str2double(get(hObject,'String')) returns contents of edit2 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function edit2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-set(hObject,'String','hoge');
-
 
 function edit_lc_Callback(hObject, eventdata, handles)
 % hObject    handle to edit_lc (see GCBO)
@@ -141,7 +119,6 @@ function edit_lc_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit_lc as text
 %        str2double(get(hObject,'String')) returns contents of edit_lc as a double
-
 
 % --- Executes during object creation, after setting all properties.
 function edit_lc_CreateFcn(hObject, eventdata, handles)
@@ -228,13 +205,24 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % theta = pi/12; % rotation around Y axis
 % psi = pi/16; % rotation around Z axis
 % main(P,phi,theta,psi);
+
+% D=handles.slider_D.Value;
+% lc=handles.slider_lc.Value;
+% rb=handles.slider_rb.Value;
+% re=handles.slider_re.Value;
+D=str2double(handles.edit_D.String);
+lc=str2double(handles.edit_lc.String);
+rb=str2double(handles.edit_rb.String);
+re=str2double(handles.edit_re.String);
+
+
 n_time = 20;
 for i_time=1:n_time
     P = [0.1-i_time/200,0.2+i_time/200,1.1]; % Position Vector of the end effector
     phi = pi/12*(i_time/10); % rotation around X axis
     theta = pi/12*(i_time/10); % rotation around Y axis
     psi = pi/16*(i_time/10); % rotation around Z axis
-    main(P,phi,theta,psi);
+    main(D,lc,rb,re,P,phi,theta,psi);
     msg = sprintf(strcat('%d frame elapsed\n',...
         'x-angle: %.2f.[rad]\n',...
         'y-angle: %.2f.[rad]\n',...
@@ -262,10 +250,9 @@ for i_time=1:n_time
         'HorizontalAlignment','left',...
         'Max',5,...
         'Position', [0.4 0.85 0.2 0.15]);
-        
+    
     drawnow;
 end
-
 
 % --- Executes on slider movement.
 function slider_D_Callback(hObject, eventdata, handles)
@@ -289,7 +276,6 @@ function slider_D_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
-
 
 % --- Executes on slider movement.
 function slider_lc_Callback(hObject, eventdata, handles)
@@ -336,7 +322,6 @@ function slider_rb_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
-
 
 % --- Executes on slider movement.
 function slider_re_Callback(hObject, eventdata, handles)
