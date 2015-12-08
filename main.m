@@ -1,10 +1,10 @@
 %% PARALLEL LINK MECHANISM SIMULATOR
 % Coded by Shohei Aoki, 2015
 % THE FABRICATOR PROJECT
-function main
-clear;
-clear all;
-P = [0.1,0.2,1.1]; % Position Vector of the end effector
+function main(P,phi,theta,psi)
+%clear;
+%clear all;
+%P = [0.1,0.2,1.1]; % Position Vector of the end effector
 % D = 0.1; % Distance between 2 slider of the pair
 D = 0.3; % Distance between 2 slider of the pair
 lc = 1.1; % Length of rod
@@ -25,7 +25,7 @@ pb = [
     rb*cos(4*pi/3+th),rb*sin(4*pi/3+th),0;
     rb*cos(4*pi/3-th),rb*sin(4*pi/3-th),0;
     ];
-s = [
+s_local = [
     re*cos(th2),re*sin(th2),0;
     re*cos(-th2),re*sin(-th2),0;
     re*cos(2*pi/3+th2),re*sin(2*pi/3+th2),0;
@@ -41,27 +41,15 @@ sliders = [
     rb*cos(4*pi/3+th),rb*sin(4*pi/3+th),ls;
     rb*cos(4*pi/3-th),rb*sin(4*pi/3-th),ls;
     ];
-phi = pi/24; % rotation around X axis
-theta = pi/12; % rotation around Y axis
-psi = pi/16; % rotation around Z axis
-
+% phi = pi/24; % rotation around X axis
+% theta = pi/12; % rotation around Y axis
+% psi = pi/16; % rotation around Z axis
 R = [
     cos(phi)*cos(theta),cos(phi)*sin(theta)*sin(psi)-sin(phi)*cos(psi),cos(phi)*sin(theta)*cos(psi)+sin(phi)*sin(psi);
     sin(phi)*cos(theta),sin(phi)*sin(theta)*sin(psi)+cos(phi)*cos(psi),sin(phi)*sin(theta)*cos(psi)-cos(phi)*sin(psi);
     -sin(theta),cos(theta)*sin(psi),cos(theta)*cos(psi);
     ]; % Rotation matrix (!!! is not Euler angle !!!)
-
-% R2_1 = [1, 0, 0;
-%     0, cos(phi), -sin(phi);
-%     0, sin(phi), cos(phi)];
-% R2_2 = [cos(theta), 0, sin(theta);
-%     0, 1, 0;
-%     -sin(theta), 0, cos(theta)];
-% R2_3 = [cos(theta), -sin(theta), 0;
-%     sin(theta), cos(theta), 0;
-%     0, 0, 1];
-% R2 = R2_1*R2_2*R2_3;
-s = s*R';
+s = s_local*R';
 a = [0,0,1];
 figure(1);
 L = computeLinkPos(P,R,s,pb);
@@ -119,9 +107,6 @@ drawSliders();
             X(n_slider,:) = [pbix+ci*a(1),px+six];
             Y(n_slider,:) = [pbiy+ci*a(2),py+siy];
             Z(n_slider,:) = [pbiz+ci*a(3),pz+siz];
-            lenrod = sqrt(((pbix+ci*a(1))-(px+six))^2+((pbiy+ci*a(2))-(py+siy))^2+((pbiz+ci*a(3))-(pz+siz))^2)
-%            sprintf('ci %.2f. Rod %d :%.2f.',n_slider, lenrod);
-            %figure(n_slider);
         end
         clf(1);
         for n_slider=1:6
@@ -132,13 +117,8 @@ drawSliders();
             hold on;
         end
     end
-
 %% draw disc
     function drawDisc(P,R)
-        %         for i_ver=1:n_side
-        %             VertexData(i_ver,:) =[Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),0];
-        %             VertexData(n_side+i_ver,:)=[Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),Height];
-        %         end
         for i_ver=1:n_side
             VertexData_0(i_ver,:) = [Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),0];
             VertexData_0(n_side+i_ver,:) = [Radius*cos(2*pi/n_side*i_ver),Radius*sin(2*pi/n_side*i_ver),Height];
@@ -146,10 +126,7 @@ drawSliders();
         n_ver = 2*n_side;        
         for i_ver=1:n_ver
              VertexData(i_ver,:) = P + VertexData_0(i_ver,:)*R';
-%             VertexData(i_ver,:) = P + VertexData_0(i_ver,:)*R2';
-%             VertexData(i_ver,:) = P + VertexData_0(i_ver,:)*R2;
         end
-        
         for i_pat=1:n_side-1
             Index_Patch1(i_pat,:) = [i_pat,i_pat+1,i_pat+1+n_side,i_pat+n_side];
         end
@@ -176,7 +153,7 @@ drawSliders();
         zlabel('z','FontSize',14);
         set(gca,'FontSize',14);
         axis vis3d equal;
-        %         view([-37.5, 30]);
+        view([-37.5, 30]);
         camlight;
         grid on;
         %         xlim([-0.2,0.2]);
@@ -193,6 +170,4 @@ drawSliders();
             hold on;
         end
     end
-
 end
-
