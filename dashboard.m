@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 09-Dec-2015 10:38:53
+% Last Modified by GUIDE v2.5 09-Dec-2015 11:36:45
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -439,3 +439,28 @@ h2 = uicontrol('Style', 'text',...
     'HorizontalAlignment','left',...
     'Max',5,...    
     'Position', [0.4 0.85 0.2 0.15]);
+
+
+% --- Executes on button press in pushbutton_loadfile.
+function pushbutton_loadfile_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_loadfile (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+[filename, pathname] = uigetfile( ...
+{'*.g;*.gcode;*.mc;*.txt;',...
+ 'G-code files (*.g,*.gcode,*.nc,*.txt)';
+   '*.*',  'All Files (*.*)'}, ...
+   'Select g-code file',getenv('HOME'));
+if(filename)
+   load_gcode(pathname,filename);
+end
+
+
+function load_gcode(pathname,filename)
+%TODO:
+disp 'TODO: not yet implemented!';
+
+
+
+
+

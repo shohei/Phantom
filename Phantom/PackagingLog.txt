@@ -1,0 +1,26 @@
+ant:
+<ant>
+  <mkdir dir="/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution" />
+  <mkdir dir="/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_testing" />
+  <mkdir dir="/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution_files_only" />
+</ant>
+mcc -o Phantom -W main:Phantom -T link:exe -d /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_testing -v /Users/shohei/Downloads/hogetest/paramecha/dashboard.m 
+Compiler version: 6.0 (R2015a)
+Dependency analysis by REQUIREMENTS.
+[Warning: Adding path "/Users/shohei/Downloads/hogetest/paramecha" to Compiler
+path instance.] 
+Parsing file "/Users/shohei/Downloads/hogetest/paramecha/dashboard.m"
+	(Referenced from: "Compiler Command Line").
+Deleting 0 temporary MEX authorization files.
+Generating file "/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_testing/readme.txt".
+Generating file "/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_testing/run_Phantom.sh".
+Packaging...
+Adding custom icon /Applications/MATLAB_R2015a.app/toolbox/compiler/Resources/default_icon.icns to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_testing/Phantom.app.
+Creating the bundle...
+Copying /Applications/MATLAB_R2015a.app/toolbox/compiler/maci64/setup.app to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app.
+Copying /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/bundle.zip to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app/Contents/Resources/bundle.zip.
+Copying /Applications/MATLAB_R2015a.app/toolbox/compiler/Resources/default_splash.png to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app/Contents/Resources/splash.png.
+Copying /Applications/MATLAB_R2015a.app/toolbox/compiler/Resources/default_icon.icns to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app/Contents/Resources/installer.icns.
+Web based installer created at /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app.
+Packaging complete.
+Elapsed packaging time was: 37 seconds.

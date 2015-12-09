@@ -1,0 +1,131 @@
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration build-checksum="4061376108" file="/Users/shohei/Downloads/hogetest/paramecha/Phantom.prj" location="/Users/shohei/Downloads/hogetest/paramecha" name="Phantom" preferred-package-location="/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution" preferred-package-type="package.type.app" target="target.ezdeploy.standalone" target-name="Application Compiler">
+    <param.appname>Phantom</param.appname>
+    <param.icon />
+    <param.icons />
+    <param.version>1.0</param.version>
+    <param.authnamewatermark>Shohei Aoki</param.authnamewatermark>
+    <param.email>shoaok@gmail.com</param.email>
+    <param.company>Keio University</param.company>
+    <param.summary />
+    <param.description />
+    <param.screenshot />
+    <param.guid />
+    <param.net.saved.interface />
+    <param.installpath.string>/Keio_University/Phantom/</param.installpath.string>
+    <param.installpath.combo>option.installpath.systemwideapp</param.installpath.combo>
+    <param.logo />
+    <param.install.notes />
+    <param.intermediate>${PROJECT_ROOT}/Phantom/for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}/Phantom/for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}/Phantom/for_redistribution</param.output>
+    <param.enable.clean.build>false</param.enable.clean.build>
+    <param.user.defined.mcr.options />
+    <param.embed.ctf>true</param.embed.ctf>
+    <param.target.type>subtarget.standalone</param.target.type>
+    <param.support.packages />
+    <param.required.mcr.products>
+      <item>35000</item>
+      <item>35010</item>
+      <item>35001</item>
+    </param.required.mcr.products>
+    <param.web.mcr>true</param.web.mcr>
+    <param.package.mcr>false</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>false</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <unset>
+      <param.icon />
+      <param.icons />
+      <param.version />
+      <param.summary />
+      <param.description />
+      <param.screenshot />
+      <param.guid />
+      <param.net.saved.interface />
+      <param.installpath.string />
+      <param.installpath.combo />
+      <param.logo />
+      <param.intermediate />
+      <param.files.only />
+      <param.output />
+      <param.enable.clean.build />
+      <param.user.defined.mcr.options />
+      <param.embed.ctf />
+      <param.target.type />
+      <param.support.packages />
+      <param.web.mcr />
+      <param.package.mcr />
+      <param.no.mcr />
+      <param.web.mcr.name />
+      <param.package.mcr.name />
+      <param.no.mcr.name />
+      <param.windows.command.prompt />
+      <param.create.log />
+      <param.log.file />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/dashboard.m</file>
+    </fileset.main>
+    <fileset.resources>
+      <file>${PROJECT_ROOT}/dashboard.fig</file>
+      <file>${PROJECT_ROOT}/main.m</file>
+    </fileset.resources>
+    <fileset.package />
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}/Phantom/for_testing" name="readme.txt" optional="true">/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_testing/readme.txt</file>
+      <file location="${PROJECT_ROOT}/Phantom/for_testing" name="Phantom.app" optional="false">/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_testing/Phantom.app</file>
+      <file location="${PROJECT_ROOT}/Phantom/for_testing" name="splash.png" optional="false">/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_testing/splash.png</file>
+      <file location="${PROJECT_ROOT}/Phantom/for_testing" name="run_Phantom.sh" optional="false">/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_testing/run_Phantom.sh</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/Applications/MATLAB_R2015a.app</root>
+      <toolboxes>
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="fixedpoint" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="matlabcoder" />
+      </toolboxes>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>true</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.11.1</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>maci64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
