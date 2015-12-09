@@ -456,14 +456,14 @@ function pushbutton_loadfile_Callback(hObject, eventdata, handles)
     '*.*',  'All Files (*.*)'}, ...
     'Select g-code file',getenv('HOME'));
 if(filename)
+    fullpath = sprintf('%s%s',pathname,filename);
+    set(handles.edit_disp_filepath,'String',fullpath);
     placeholder = sprintf(strcat(...
         'Loading gcode... Please wait...\n',...
         'This may take a while...'));
     set(handles.edit_disp_gcode,'String',placeholder);
     pause(1);
     
-    fullpath = sprintf('%s%s',pathname,filename);
-    set(handles.edit_disp_filepath,'String',fullpath);
     
     fullpath = sprintf('%s%s',pathname,filename);
     fid = fopen(fullpath,'r');
