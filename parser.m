@@ -1,4 +1,4 @@
-function parser(gcode_texts,D,lc,ls,rb,re,Pz)
+function parser(handles,gcode_texts,D,lc,ls,rb,re,Pz)
 
 cvector = strsplit(gcode_texts,'\n');
 Xt_old = '';
@@ -32,6 +32,10 @@ for cindex=1:length(cvector)
             case 'G130' % Set digital potentiometer value
                 %disp 'do nothing';
         end
+    end
+    if(handles.abort==1) %this way not working: cannot pass handles to function...
+        disp 'aborting program.';
+        break; 
     end
 end
 
@@ -125,7 +129,7 @@ end
         C = main(D,lc,ls,rb,re,P,At_rad,Bt_rad,Ct_rad);
         %         if check==1
         %             showDebugMessage(i_time,phi,theta,psi,C);
-        %         end
+        %         end        
         drawnow;
  
         Xt_old = Xt;

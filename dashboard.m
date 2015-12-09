@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 09-Dec-2015 16:33:21
+% Last Modified by GUIDE v2.5 09-Dec-2015 17:41:42
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -90,6 +90,9 @@ set(handles.slider_lc,'Value',handles.lc);
 set(handles.slider_rb,'Value',handles.rb);
 set(handles.slider_re,'Value',handles.re);
 set(handles.slider_Pz,'Value',handles.Pz);
+
+% initialize other variables
+handles.abort = 0;
 
 % Update handles structure
 guidata(hObject, handles);
@@ -585,9 +588,20 @@ re=str2double(handles.edit_re.String);
 Pz=str2double(handles.edit_Pz.String);
 ls = handles.ls;
 
+set(handles.pushbutton_abort,'Visible','On');
+
 clearDebugMessage();
 rotate3d on;
-parser(handles.gcode,D,lc,ls,rb,re,Pz);
+parser(handles,handles.gcode,D,lc,ls,rb,re,Pz);
+
+
+% --- Executes on button press in pushbutton_abort.
+function pushbutton_abort_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_abort (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles.abort = 1;
+guidata(hObject,handles);
 
 
 % --------------------------------------------------------------------
@@ -658,3 +672,5 @@ function m_full_screen_Callback(hObject, eventdata, handles)
 % hObject    handle to m_full_screen (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
