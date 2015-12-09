@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 09-Dec-2015 15:33:41
+% Last Modified by GUIDE v2.5 09-Dec-2015 16:33:21
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -507,6 +507,7 @@ if(filename)
     close(progressDlg); 
     
     handles.gcode = lines;
+    set(handles.pushbutton_run_gcode,'Visible','On');
     
     guidata(hObject,handles);
 end
@@ -571,6 +572,13 @@ set(handles.slider_rb,'Value',handles.rb);
 set(handles.slider_re,'Value',handles.re);
 set(handles.slider_Pz,'Value',handles.Pz);
 guidata(hObject,handles);
+
+% --- Executes on button press in pushbutton_run_gcode.
+function pushbutton_run_gcode_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_run_gcode (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+parser(handles.gcode);
 
 
 % --------------------------------------------------------------------

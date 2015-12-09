@@ -7,10 +7,6 @@ for i=1:10
 end
 msg
 
-
-
-
-
 return
 %% Never reached..................
 % x = [0,1];
