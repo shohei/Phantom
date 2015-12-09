@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 09-Dec-2015 11:36:45
+% Last Modified by GUIDE v2.5 09-Dec-2015 11:49:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -459,8 +459,3 @@ end
 function load_gcode(pathname,filename)
 %TODO:
 disp 'TODO: not yet implemented!';
-
-
-
-
-
