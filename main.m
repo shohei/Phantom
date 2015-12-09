@@ -157,10 +157,11 @@ drawSliders();
         axis vis3d equal;
         view([-37.5, 30]);
         camlight;
+
         grid on;
-%         xlim([-1,1]);
-%         ylim([-1,1]);
-%         zlim([0,1.5]);
+         xlim([(-1.0*ls/2.0)*1.5,(ls/2.0)*1.5]);
+         ylim([(-1.0*ls/2.0)*1.5,(ls/2.0)*1.5]);
+         zlim([0,P(3)*1.5]);
     end
 %% draw sliders
     function drawSliders()

@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 09-Dec-2015 13:05:37
+% Last Modified by GUIDE v2.5 09-Dec-2015 15:33:41
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -55,12 +55,12 @@ function dashboard_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 
 % Declare global variable
-handles.final_D = 0.3; % Distance between 2 slider of the pair
-handles.final_lc = 1.1; % Length of rod
-handles.final_rb = 1; % Distance between origin and actuator on X-Y plane
-handles.final_re = 0.4; % Radius of table
-handles.final_Pz = 1.1;
-handles.final_ls = 1.1;
+handles.final_D = 70; % Distance between 2 slider of the pair
+handles.final_lc = 580; % Length of rod
+handles.final_rb = 500; % Distance between origin and actuator on X-Y plane
+handles.final_re = 200; % Radius of table
+handles.final_Pz = 800;
+handles.final_ls = 700;
 
 % Initialize instance variable
 handles.D = handles.final_D; % Distance between 2 slider of the pair
@@ -382,9 +382,9 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in pushbutton1.
-function pushbutton1_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton1 (see GCBO)
+% --- Executes on button press in pushbutton_run.
+function pushbutton_run_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_run (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
