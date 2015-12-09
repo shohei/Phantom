@@ -1,8 +1,16 @@
-function parser(command_lines)
+function parser(gcode_texts,D,lc,ls,rb,re,Pz)
 
-cvector = strsplit(command_lines,'\n');
+cvector = strsplit(gcode_texts,'\n');
+Xt_old = '';
+Yt_old = '';
+Zt_old = '';
+Et_old = '';
+Ft_old = '';
+At_old = '';
+Bt_old = '';
+Ct_old = '';        
 
-for cindex=1:length(cvector)   
+for cindex=1:length(cvector)
     cline = cvector(cindex);
     cline = cline{1};
     [startIndex,endIndex] = regexp(cline,'^G\d*');
@@ -24,7 +32,7 @@ for cindex=1:length(cvector)
             case 'G130' % Set digital potentiometer value
                 %disp 'do nothing';
         end
-    end    
+    end
 end
 
     function linear_move(coords)
@@ -37,30 +45,97 @@ end
         [a_st_index,a_end_index] = regexp(coords,'A[\d\.]*?\s');
         [b_st_index,b_end_index] = regexp(coords,'B[\d\.]*?\s');
         [c_st_index,c_end_index] = regexp(coords,'C[\d\.]*?\s');
-
+        
         if(~isempty(x_st_index))
-            X = coords(x_st_index+1:x_end_index)
+            Xt = coords(x_st_index+1:x_end_index);
+        elseif(~isempty(Xt_old))
+            Xt = Xt_old;
+        else
+            Xt = 0;
         end
         if(~isempty(y_st_index))
-            Y = coords(y_st_index+1:y_end_index)
+            Yt = coords(y_st_index+1:y_end_index);
+        elseif(~isempty(Yt_old))
+            Yt = Yt_old;
+        else
+            Yt = 0;
         end
         if(~isempty(z_st_index))
-            Z = coords(z_st_index+1:z_end_index)
+            Zt = coords(z_st_index+1:z_end_index);
+        elseif(~isempty(Zt_old))
+            Zt = Zt_old;
+        else
+            Zt = 0;
         end
         if(~isempty(e_st_index))
-            E = coords(e_st_index+1:e_end_index)
+            Et = coords(e_st_index+1:e_end_index);
+        elseif(~isempty(Et_old))
+            Et = Et_old;
+        else
+            Et = 0;
         end
         if(~isempty(f_st_index))
-            F = coords(f_st_index+1:f_end_index)
+            Ft = coords(f_st_index+1:f_end_index);
+        elseif(~isempty(Ft_old))
+            Ft = Ft_old;
+        else
+            Ft = 0;
         end
         if(~isempty(a_st_index))
-            A = coords(a_st_index+1:a_end_index)
+            At = coords(a_st_index+1:a_end_index);
+        elseif(~isempty(At_old))
+            At = At_old;
+        else
+            At = 0;
         end
         if(~isempty(b_st_index))
-            B = coords(b_st_index+1:b_end_index)
+            Bt = coords(b_st_index+1:b_end_index);
+        elseif(~isempty(Bt_old))
+            Bt = Bt_old;
+        else
+            Bt = 0;
         end
         if(~isempty(c_st_index))
-            C = coords(c_st_index+1:c_end_index)
-        end
+            Ct = coords(c_st_index+1:c_end_index);
+        elseif(~isempty(Ct_old))
+            Ct = Ct_old;
+        else
+            Ct = 0;
+        end 
+        %         P = [0.1-i_time/200,0.2+i_time/200,Pz]; % Position Vector of the end effector
+        %         phi = pi/12*(i_time/10); % rotation around X axis
+        %         theta = pi/12*(i_time/10); % rotation around Y axis
+        %         psi = pi/16*(i_time/10); % rotation around Z axis
+
+        
+        Xt_n = str2double(Xt);
+        Yt_n = str2double(Yt);
+        Zt_n = str2double(Zt);
+        Et_n = str2double(Et);
+        Ft_n = str2double(Ft);
+        At_n = str2double(At);
+        Bt_n = str2double(Bt);
+        Ct_n = str2double(Ct);
+        
+        At_rad = At*pi/180.0;
+        Bt_rad = Bt*pi/180.0;
+        Ct_rad = Ct*pi/180.0;
+        P = [Xt_n Yt_n Pz+Zt_n];
+        
+        C = main(D,lc,ls,rb,re,P,At_rad,Bt_rad,Ct_rad);
+        %         if check==1
+        %             showDebugMessage(i_time,phi,theta,psi,C);
+        %         end
+        drawnow;
+ 
+        Xt_old = Xt;
+        Yt_old = Yt;
+        Zt_old = Zt;
+        Et_old = Et;
+        Ft_old = Ft;
+        At_old = At;
+        Bt_old = Bt;
+        Ct_old = Ct;        
     end
+
 end

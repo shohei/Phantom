@@ -578,7 +578,16 @@ function pushbutton_run_gcode_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_run_gcode (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-parser(handles.gcode);
+D=str2double(handles.edit_D.String);
+lc=str2double(handles.edit_lc.String);
+rb=str2double(handles.edit_rb.String);
+re=str2double(handles.edit_re.String);
+Pz=str2double(handles.edit_Pz.String);
+ls = handles.ls;
+
+clearDebugMessage();
+rotate3d on;
+parser(handles.gcode,D,lc,ls,rb,re,Pz);
 
 
 % --------------------------------------------------------------------
