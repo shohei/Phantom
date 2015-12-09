@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 09-Dec-2015 17:55:18
+% Last Modified by GUIDE v2.5 09-Dec-2015 20:22:54
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -92,7 +92,8 @@ set(handles.slider_re,'Value',handles.re);
 set(handles.slider_Pz,'Value',handles.Pz);
 
 % initialize other variables
-handles.abort = 0;
+set(handles.slider_abort,'Value',0);
+set(handles.slider_if_running,'Value',0);
 set(handles.checkbox_debug,'Value',1);
 guidata(hObject,handles);
 
@@ -410,7 +411,7 @@ check=get(handles.checkbox_debug,'Value');
 
 n_time = 20;
 
-clearDebugMessage();
+clearDebugMessage(handles);
 rotate3d on;
 for i_time=1:n_time
     P = [0.1-i_time/200,0.2+i_time/200,Pz]; % Position Vector of the end effector
@@ -419,29 +420,17 @@ for i_time=1:n_time
     psi = pi/16*(i_time/10); % rotation around Z axis
     C = main(D,lc,ls,rb,re,P,phi,theta,psi);
     if check==1
-        showDebugMessage(i_time,phi,theta,psi,C);
+        showDebugMessage(handles,i_time,phi,theta,psi,C);
     end
     drawnow;
 end
 
-function clearDebugMessage()
-uicontrol('Style', 'text',...
-    'String', '',...
-    'Units','normalized',...
-    'FontSize', 10,....
-    'HorizontalAlignment','left',...
-    'Max',5,...
-    'Position', [0.02 0.9 0.15 0.1]);
+function clearDebugMessage(handles)
+set(handles.text_angle,'String','');
+set(handles.text_scontrol,'String','');
 
-uicontrol('Style', 'text',...
-    'String', '',...
-    'Units','normalized',...
-    'FontSize', 10,....
-    'HorizontalAlignment','left',...
-    'Max',5,...
-    'Position', [0.15 0.9 0.15 0.1]);
 
-function showDebugMessage(i_time,phi,theta,psi,C)
+function showDebugMessage(handles,i_time,phi,theta,psi,C)
 msg = sprintf(strcat('%d frame elapsed\n',...
     'x-angle: %.2f[rad]\n',...
     'y-angle: %.2f[rad]\n',...
@@ -452,21 +441,8 @@ msg2 = sprintf(strcat('Slider control\n',...
     'c3: %.2f, c4: %.2f\n',...
     'c5: %.2f, c6: %.2f\n'),C(1),C(2),C(3),C(4),C(5),C(6));
 
-h1 = uicontrol('Style', 'text',...
-    'String', msg,...
-    'Units','normalized',...
-    'FontSize', 10,...
-    'HorizontalAlignment','left',...
-    'Max',5,...
-    'Position', [0.02 0.9 0.15 0.1]);
-
-h2 = uicontrol('Style', 'text',...
-    'String', msg2,...
-    'Units','normalized',...
-    'FontSize', 10,...
-    'HorizontalAlignment','left',...
-    'Max',5,...
-    'Position', [0.15 0.9 0.15 0.1]);
+set(handles.text_angle,'String',msg);
+set(handles.text_scontrol,'String',msg2);
 
 
 % --- Executes on button press in pushbutton_loadfile.
@@ -576,7 +552,7 @@ set(handles.slider_lc,'Value',handles.lc);
 set(handles.slider_rb,'Value',handles.rb);
 set(handles.slider_re,'Value',handles.re);
 set(handles.slider_Pz,'Value',handles.Pz);
-handles.abort = 0;
+set(handles.slider_abort,'Value',0);
 guidata(hObject,handles);
 
 
@@ -594,18 +570,23 @@ ls = handles.ls;
 
 set(handles.pushbutton_abort,'Visible','On');
 
-clearDebugMessage();
+clearDebugMessage(handles);
 rotate3d on;
+set(handles.slider_if_running,'Value',1);
 parser(handles,handles.gcode,D,lc,ls,rb,re,Pz);
-
+guidata(hObject,handles);
 
 % --- Executes on button press in pushbutton_abort.
 function pushbutton_abort_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_abort (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles.abort = 1;
-guidata(hObject,handles);
+abort=get(handles.slider_abort,'Value');
+running=get(handles.slider_if_running,'Value');
+if(running==1 && abort==0)
+  set(handles.slider_abort,'Value',1);
+  guidata(hObject,handles);
+end
 
 
 % --------------------------------------------------------------------
@@ -676,3 +657,47 @@ function m_full_screen_Callback(hObject, eventdata, handles)
 % hObject    handle to m_full_screen (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on slider movement.
+function slider_abort_Callback(hObject, eventdata, handles)
+% hObject    handle to slider_abort (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider_abort_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider_abort (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+% --- Executes on slider movement.
+function slider_if_running_Callback(hObject, eventdata, handles)
+% hObject    handle to slider_if_running (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider_if_running_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider_if_running (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end

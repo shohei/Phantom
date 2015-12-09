@@ -10,23 +10,30 @@ At_old = '';
 Bt_old = '';
 Ct_old = '';
 
-clearDebugMessage();
+clearDebugMessage(handles);
 i_counter=0;
-checked=get(handles.checkbox_debug,'Value');
 
 for cindex=1:length(cvector)
     cline = cvector(cindex);
     cline = cline{1};
     [startIndex,endIndex] = regexp(cline,'^G\d*');
     if(~isempty(startIndex))
+        % Check for cancellation
+        abort=get(handles.slider_abort,'Value');
+        if(abort==1)
+            set(handles.slider_abort,'Value',0);
+            set(handles.slider_if_running,'Value',0);
+            return;            
+        end
+        
         Gcommand = cline(startIndex:endIndex);
         switch Gcommand
             case 'G0' % Rapid linear Move
                 %disp 'linear move';
-                linear_move(cline,cline(endIndex+1:length(cline)),i_counter);
+                linear_move(handles,cline,cline(endIndex+1:length(cline)),i_counter);
             case 'G1' % Linear Move
                 %disp 'linear move';
-                linear_move(cline,cline(endIndex+1:length(cline)),i_counter);
+                linear_move(handles,cline,cline(endIndex+1:length(cline)),i_counter);
             case 'G161' % Home axes to minimum
                 %disp 'home axes';
             case 'G162' % Home axes to maximum
@@ -37,14 +44,13 @@ for cindex=1:length(cvector)
                 %disp 'do nothing';
         end
     end
-    if(handles.abort==1) %this way not working: cannot pass handles to function...
-        disp 'aborting program.';
-        break;
-    end
     i_counter=i_counter+1;
 end
 
-    function linear_move(cline,coords,i_counter)
+% Finalization
+handles.runnning=0;
+
+    function linear_move(handles,cline,coords,i_counter)
         %         disp(coords);
         [x_st_index,x_end_index] = regexp(coords,'X[\d\.]*?\s');
         [y_st_index,y_end_index] = regexp(coords,'Y[\d\.]*?\s');
@@ -145,41 +151,23 @@ end
         At_old = At;
         Bt_old = Bt;
         Ct_old = Ct;
-        
+       
+        checked=get(handles.checkbox_debug,'Value');
         if(checked==1)
-            showDebugMessage(cline,i_counter,At_rad,Bt_rad,Ct_rad,C);
+            showDebugMessage(handles,cline,i_counter,At_rad,Bt_rad,Ct_rad,C);
+        else
+            clearDebugMessage(handles);
         end
-        
-    end
-
-    function clearDebugMessage()
-        uicontrol('Style', 'text',...
-            'String', '',...
-            'Units','normalized',...
-            'FontSize', 10,....
-            'HorizontalAlignment','left',...
-            'Max',5,...
-            'Position', [0.02 0.9 0.15 0.1]);
-        
-        uicontrol('Style', 'text',...
-            'String', '',...
-            'Units','normalized',...
-            'FontSize', 10,....
-            'HorizontalAlignment','left',...
-            'Max',5,...
-            'Position', [0.15 0.9 0.15 0.1]);
-    
-        h3 = uicontrol('Style', 'text',...
-            'String', '',...
-            'Units','normalized',...
-            'FontSize', 12,...
-            'HorizontalAlignment','left',...
-            'Max',5,...
-            'Position', [0.37 0.9 0.25 0.1]);
 
     end
 
-    function showDebugMessage(cline,i_time,phi,theta,psi,C)
+    function clearDebugMessage(handles)
+        set(handles.text_angle,'String','');
+        set(handles.text_scontrol,'String','');
+        set(handles.text_gcode_run,'String','');            
+    end
+
+    function showDebugMessage(handles,cline,i_time,phi,theta,psi,C)
         cline = strtrim(cline);
         msg = sprintf(strcat('%d frame elapsed\n',...
             'x-angle: %.2f[rad]\n',...
@@ -193,29 +181,8 @@ end
         
         msg3 = sprintf(strcat('Running G-code:\n','%s'),cline);
         
-        h1 = uicontrol('Style', 'text',...
-            'String', msg,...
-            'Units','normalized',...
-            'FontSize', 10,...
-            'HorizontalAlignment','left',...
-            'Max',5,...
-            'Position', [0.02 0.9 0.15 0.1]);
-        
-        h2 = uicontrol('Style', 'text',...
-            'String', msg2,...
-            'Units','normalized',...
-            'FontSize', 10,...
-            'HorizontalAlignment','left',...
-            'Max',5,...
-            'Position', [0.15 0.9 0.15 0.1]);
-        
-        h3 = uicontrol('Style', 'text',...
-            'String', msg3,...
-            'Units','normalized',...
-            'FontSize', 12,...
-            'HorizontalAlignment','left',...
-            'Max',5,...
-            'Position', [0.37 0.9 0.25 0.1]);
-
+        set(handles.text_angle,'String',msg);
+        set(handles.text_scontrol,'String',msg2);
+        set(handles.text_gcode_run,'String',msg3);        
     end
 end
