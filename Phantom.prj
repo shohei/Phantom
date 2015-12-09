@@ -1,15 +1,15 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="4061376108" file="/Users/shohei/Downloads/hogetest/paramecha/Phantom.prj" location="/Users/shohei/Downloads/hogetest/paramecha" name="Phantom" preferred-package-location="/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution" preferred-package-type="package.type.app" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration build-checksum="1782066315" file="/Users/shohei/Downloads/hogetest/paramecha/Phantom.prj" location="/Users/shohei/Downloads/hogetest/paramecha" name="Phantom" preferred-package-location="/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution" preferred-package-type="package.type.app" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>Phantom</param.appname>
     <param.icon />
     <param.icons />
-    <param.version>1.0</param.version>
+    <param.version>1.3</param.version>
     <param.authnamewatermark>Shohei Aoki</param.authnamewatermark>
     <param.email>shoaok@gmail.com</param.email>
     <param.company>Keio University</param.company>
     <param.summary />
     <param.description />
-    <param.screenshot />
+    <param.screenshot>${PROJECT_ROOT}/image/cropped.png</param.screenshot>
     <param.guid />
     <param.net.saved.interface />
     <param.installpath.string>/Keio_University/Phantom/</param.installpath.string>
@@ -41,10 +41,8 @@
     <unset>
       <param.icon />
       <param.icons />
-      <param.version />
       <param.summary />
       <param.description />
-      <param.screenshot />
       <param.guid />
       <param.net.saved.interface />
       <param.installpath.string />
@@ -72,8 +70,11 @@
       <file>${PROJECT_ROOT}/dashboard.m</file>
     </fileset.main>
     <fileset.resources>
+      <file>${PROJECT_ROOT}/about.fig</file>
+      <file>${PROJECT_ROOT}/about.m</file>
       <file>${PROJECT_ROOT}/dashboard.fig</file>
       <file>${PROJECT_ROOT}/main.m</file>
+      <file>${PROJECT_ROOT}/parser.m</file>
     </fileset.resources>
     <fileset.package />
     <build-deliverables>
