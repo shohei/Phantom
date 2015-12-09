@@ -8,7 +8,10 @@ Et_old = '';
 Ft_old = '';
 At_old = '';
 Bt_old = '';
-Ct_old = '';        
+Ct_old = '';
+
+clearDebugMessage();
+i_counter=0;
 
 for cindex=1:length(cvector)
     cline = cvector(cindex);
@@ -18,11 +21,11 @@ for cindex=1:length(cvector)
         Gcommand = cline(startIndex:endIndex);
         switch Gcommand
             case 'G0' % Rapid linear Move
-                disp 'linear move';
-                linear_move(cline(endIndex+1:length(cline)));
+                %disp 'linear move';
+                linear_move(cline(endIndex+1:length(cline)),i_counter);
             case 'G1' % Linear Move
-                disp 'linear move';
-                linear_move(cline(endIndex+1:length(cline)));
+                %disp 'linear move';
+                linear_move(cline(endIndex+1:length(cline)),i_counter);
             case 'G161' % Home axes to minimum
                 %disp 'home axes';
             case 'G162' % Home axes to maximum
@@ -35,11 +38,12 @@ for cindex=1:length(cvector)
     end
     if(handles.abort==1) %this way not working: cannot pass handles to function...
         disp 'aborting program.';
-        break; 
+        break;
     end
+    i_counter=i_counter+1;
 end
 
-    function linear_move(coords)
+    function linear_move(coords,i_counter)
         %         disp(coords);
         [x_st_index,x_end_index] = regexp(coords,'X[\d\.]*?\s');
         [y_st_index,y_end_index] = regexp(coords,'Y[\d\.]*?\s');
@@ -55,62 +59,62 @@ end
         elseif(~isempty(Xt_old))
             Xt = Xt_old;
         else
-            Xt = 0;
+            Xt = '0';
         end
         if(~isempty(y_st_index))
             Yt = coords(y_st_index+1:y_end_index);
         elseif(~isempty(Yt_old))
             Yt = Yt_old;
         else
-            Yt = 0;
+            Yt = '0';
         end
         if(~isempty(z_st_index))
             Zt = coords(z_st_index+1:z_end_index);
         elseif(~isempty(Zt_old))
             Zt = Zt_old;
         else
-            Zt = 0;
+            Zt = '0';
         end
         if(~isempty(e_st_index))
             Et = coords(e_st_index+1:e_end_index);
         elseif(~isempty(Et_old))
             Et = Et_old;
         else
-            Et = 0;
+            Et = '0';
         end
         if(~isempty(f_st_index))
             Ft = coords(f_st_index+1:f_end_index);
         elseif(~isempty(Ft_old))
             Ft = Ft_old;
         else
-            Ft = 0;
+            Ft = '0';
         end
         if(~isempty(a_st_index))
             At = coords(a_st_index+1:a_end_index);
         elseif(~isempty(At_old))
             At = At_old;
         else
-            At = 0;
+            At = '0';
         end
         if(~isempty(b_st_index))
             Bt = coords(b_st_index+1:b_end_index);
         elseif(~isempty(Bt_old))
             Bt = Bt_old;
         else
-            Bt = 0;
+            Bt = '0';
         end
         if(~isempty(c_st_index))
             Ct = coords(c_st_index+1:c_end_index);
         elseif(~isempty(Ct_old))
             Ct = Ct_old;
         else
-            Ct = 0;
-        end 
+            Ct = '0';
+        end
         %         P = [0.1-i_time/200,0.2+i_time/200,Pz]; % Position Vector of the end effector
         %         phi = pi/12*(i_time/10); % rotation around X axis
         %         theta = pi/12*(i_time/10); % rotation around Y axis
         %         psi = pi/16*(i_time/10); % rotation around Z axis
-
+        
         
         Xt_n = str2double(Xt);
         Yt_n = str2double(Yt);
@@ -121,17 +125,17 @@ end
         Bt_n = str2double(Bt);
         Ct_n = str2double(Ct);
         
-        At_rad = At*pi/180.0;
-        Bt_rad = Bt*pi/180.0;
-        Ct_rad = Ct*pi/180.0;
+        At_rad = At_n*pi/180.0;
+        Bt_rad = Bt_n*pi/180.0;
+        Ct_rad = Ct_n*pi/180.0;
         P = [Xt_n Yt_n Pz+Zt_n];
         
         C = main(D,lc,ls,rb,re,P,At_rad,Bt_rad,Ct_rad);
         %         if check==1
         %             showDebugMessage(i_time,phi,theta,psi,C);
-        %         end        
+        %         end
         drawnow;
- 
+        
         Xt_old = Xt;
         Yt_old = Yt;
         Zt_old = Zt;
@@ -139,7 +143,58 @@ end
         Ft_old = Ft;
         At_old = At;
         Bt_old = Bt;
-        Ct_old = Ct;        
+        Ct_old = Ct;
+        
+        if(handles.checkbox_debug==1)
+            showDebugMessage(i_counter,At_rad,Bt_rad,Ct_rad,C);
+        end
+        
     end
 
+    function clearDebugMessage()
+        uicontrol('Style', 'text',...
+            'String', '',...
+            'Units','normalized',...
+            'FontSize', 10,....
+            'HorizontalAlignment','left',...
+            'Max',5,...
+            'Position', [0.02 0.85 0.2 0.15]);
+        
+        uicontrol('Style', 'text',...
+            'String', '',...
+            'Units','normalized',...
+            'FontSize', 10,....
+            'HorizontalAlignment','left',...
+            'Max',5,...
+            'Position', [0.4 0.85 0.2 0.15]);
+    end
+
+    function showDebugMessage(i_time,phi,theta,psi,C)
+        msg = sprintf(strcat('%d frame elapsed\n',...
+            'x-angle: %.2f[rad]\n',...
+            'y-angle: %.2f[rad]\n',...
+            'z-angle: %.2f[rad]\n'),i_time,phi,theta,psi);
+        
+        msg2 = sprintf(strcat('Slider control\n',...
+            'c1: %.2f, c2: %.2f\n',...
+            'c3: %.2f, c4: %.2f\n',...
+            'c5: %.2f, c6: %.2f\n'),C(1),C(2),C(3),C(4),C(5),C(6));
+        
+        h1 = uicontrol('Style', 'text',...
+            'String', msg,...
+            'Units','normalized',...
+            'FontSize', 10,...
+            'HorizontalAlignment','left',...
+            'Max',5,...
+            'Position', [0.02 0.85 0.2 0.15]);
+        
+        h2 = uicontrol('Style', 'text',...
+            'String', msg2,...
+            'Units','normalized',...
+            'FontSize', 10,...
+            'HorizontalAlignment','left',...
+            'Max',5,...
+            'Position', [0.4 0.85 0.2 0.15]);
+        
+    end
 end
