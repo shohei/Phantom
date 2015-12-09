@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 09-Dec-2015 17:41:42
+% Last Modified by GUIDE v2.5 09-Dec-2015 17:55:18
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -574,7 +574,9 @@ set(handles.slider_lc,'Value',handles.lc);
 set(handles.slider_rb,'Value',handles.rb);
 set(handles.slider_re,'Value',handles.re);
 set(handles.slider_Pz,'Value',handles.Pz);
+handles.abort = 0;
 guidata(hObject,handles);
+
 
 % --- Executes on button press in pushbutton_run_gcode.
 function pushbutton_run_gcode_Callback(hObject, eventdata, handles)
@@ -672,5 +674,3 @@ function m_full_screen_Callback(hObject, eventdata, handles)
 % hObject    handle to m_full_screen (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
