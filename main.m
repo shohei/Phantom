@@ -1,14 +1,14 @@
 %% PARALLEL LINK MECHANISM SIMULATOR
 % Coded by Shohei Aoki, 2015
 % THE FABRICATOR PROJECT
-function C = main(D,lc,rb,re,P,phi,theta,psi)
+function C = main(D,lc,ls,rb,re,P,phi,theta,psi)
 %clear;
 %clear all;
 %P = [0.1,0.2,1.1]; % Position Vector of the end effector
 % D = 0.1; % Distance between 2 slider of the pair
 % D = 0.3; % Distance between 2 slider of the pair
 % lc = 1.1; % Length of rod
-ls = 1.0;
+% ls = 1.0;
 % rb = 1; % Distance between origin and actuator on X-Y plane
 % re = 0.4; % Radius of table
 Radius = re;
@@ -158,9 +158,9 @@ drawSliders();
         view([-37.5, 30]);
         camlight;
         grid on;
-        xlim([-1,1]);
-        ylim([-1,1]);
-        zlim([0,1.5]);
+%         xlim([-1,1]);
+%         ylim([-1,1]);
+%         zlim([0,1.5]);
     end
 %% draw sliders
     function drawSliders()

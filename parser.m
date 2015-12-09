@@ -13,19 +13,19 @@ while ischar(tline)
         Gcommand = tline(startIndex:endIndex);
         switch Gcommand
             case 'G0' % Rapid linear Move
-                disp 'linear move';
+                %disp 'linear move';
                 linear_move(tline(endIndex+1:length(tline)));
             case 'G1' % Linear Move
-                disp 'linear move';
+                %disp 'linear move';
                 linear_move(tline(endIndex+1:length(tline)));
             case 'G161' % Home axes to minimum
-                disp 'home axes';
+                %disp 'home axes';
             case 'G162' % Home axes to maximum
-                disp 'home axes';
+                %disp 'home axes';
             case 'G92' % Set Position
-                disp 'set position';
+                %disp 'set position';
             case 'G130' % Set digital potentiometer value
-                disp 'do nothing';
+                %disp 'do nothing';
         end
         %disp(tline);
     end

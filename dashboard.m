@@ -394,6 +394,7 @@ lc=str2double(handles.edit_lc.String);
 rb=str2double(handles.edit_rb.String);
 re=str2double(handles.edit_re.String);
 Pz=str2double(handles.edit_Pz.String);
+ls = 1.1;
 
 check=handles.checkbox_debug;
 
@@ -406,7 +407,7 @@ for i_time=1:n_time
     phi = pi/12*(i_time/10); % rotation around X axis
     theta = pi/12*(i_time/10); % rotation around Y axis
     psi = pi/16*(i_time/10); % rotation around Z axis
-    C = main(D,lc,rb,re,P,phi,theta,psi);
+    C = main(D,lc,ls,rb,re,P,phi,theta,psi);
     if check==1
         showDebugMessage(i_time,phi,theta,psi,C);
     end
