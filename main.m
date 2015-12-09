@@ -150,10 +150,10 @@ drawSliders();
         end
         h2 = patch(PatchData2_X,PatchData2_Y,PatchData2_Z,'y');% top/bottom patch
         set(h2,'FaceLighting','phong','EdgeLighting','phong');
-        xlabel('x','FontSize',14);
-        ylabel('y','FontSize',14);
-        zlabel('z','FontSize',14);
-        set(gca,'FontSize',14);
+        xlabel('x','FontSize',12);
+        ylabel('y','FontSize',12);
+        zlabel('z','FontSize',12);
+        set(gca,'FontSize',12);
         axis vis3d equal;
         view([-37.5, 30]);
         camlight;

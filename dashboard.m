@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 09-Dec-2015 11:49:11
+% Last Modified by GUIDE v2.5 09-Dec-2015 12:29:14
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -398,7 +398,7 @@ end
 
 function clearDebugMessage()
 uicontrol('Style', 'text',...
-    'String', '',... 
+    'String', '',...
     'Units','normalized',...
     'FontSize', 10,....
     'HorizontalAlignment','left',...
@@ -406,7 +406,7 @@ uicontrol('Style', 'text',...
     'Position', [0.02 0.85 0.2 0.15]);
 
 uicontrol('Style', 'text',...
-    'String', '',... 
+    'String', '',...
     'Units','normalized',...
     'FontSize', 10,....
     'HorizontalAlignment','left',...
@@ -425,7 +425,7 @@ msg2 = sprintf(strcat('Slider control\n',...
     'c5: %.2f, c6: %.2f\n'),C(1),C(2),C(3),C(4),C(5),C(6));
 
 h1 = uicontrol('Style', 'text',...
-    'String', msg,... 
+    'String', msg,...
     'Units','normalized',...
     'FontSize', 10,...
     'HorizontalAlignment','left',...
@@ -433,11 +433,11 @@ h1 = uicontrol('Style', 'text',...
     'Position', [0.02 0.85 0.2 0.15]);
 
 h2 = uicontrol('Style', 'text',...
-    'String', msg2,... 
+    'String', msg2,...
     'Units','normalized',...
     'FontSize', 10,...
     'HorizontalAlignment','left',...
-    'Max',5,...    
+    'Max',5,...
     'Position', [0.4 0.85 0.2 0.15]);
 
 
@@ -447,15 +447,102 @@ function pushbutton_loadfile_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 [filename, pathname] = uigetfile( ...
-{'*.g;*.gcode;*.mc;*.txt;',...
- 'G-code files (*.g,*.gcode,*.nc,*.txt)';
-   '*.*',  'All Files (*.*)'}, ...
-   'Select g-code file',getenv('HOME'));
+    {'*.g;*.gcode;*.mc;*.txt;',...
+    'G-code files (*.g,*.gcode,*.nc,*.txt)';
+    '*.*',  'All Files (*.*)'}, ...
+    'Select g-code file',getenv('HOME'));
 if(filename)
-   load_gcode(pathname,filename);
+%     load_gcode(pathname,filename);
+    fullpath = sprintf('%s%s',pathname,filename);
+    set(handles.edit_disp_filepath,'String',fullpath);
+
+    msg = sprintf(strcat(...
+    'G-code comes here\n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n',...
+    'G1 X10 Y10 Z10 \n'));
+
+    set(handles.edit_disp_gcode,'String',msg);
+    guidata(hObject,handles);
 end
 
 
 function load_gcode(pathname,filename)
 %TODO:
 disp 'TODO: not yet implemented!';
+pathname
+filename
+
+
+% --- Executes on selection change in listbox_gcode.
+function listbox_gcode_Callback(hObject, eventdata, handles)
+% hObject    handle to listbox_gcode (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns listbox_gcode contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from listbox_gcode
+
+% --- Executes during object creation, after setting all properties.
+function listbox_gcode_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to listbox_gcode (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: listbox controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+function edit_disp_gcode_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_disp_gcode (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_disp_gcode as text
+%        str2double(get(hObject,'String')) returns contents of edit_disp_gcode as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_disp_gcode_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_disp_gcode (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+function edit_disp_filepath_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_disp_filepath (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_disp_filepath as text
+%        str2double(get(hObject,'String')) returns contents of edit_disp_filepath as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit_disp_filepath_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_disp_filepath (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
