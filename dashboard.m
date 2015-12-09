@@ -54,12 +54,21 @@ function dashboard_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for dashboard
 handles.output = hObject;
 
-% declare global variable
-handles.D = 0.3; % Distance between 2 slider of the pair
-handles.lc = 1.1; % Length of rod
-handles.rb = 1; % Distance between origin and actuator on X-Y plane
-handles.re = 0.4; % Radius of table
-handles.Pz = 1.1;
+% Declare global variable
+handles.final_D = 0.3; % Distance between 2 slider of the pair
+handles.final_lc = 1.1; % Length of rod
+handles.final_rb = 1; % Distance between origin and actuator on X-Y plane
+handles.final_re = 0.4; % Radius of table
+handles.final_Pz = 1.1;
+handles.final_ls = 1.1;
+
+% Initialize instance variable
+handles.D = handles.final_D; % Distance between 2 slider of the pair
+handles.lc = handles.final_lc; % Length of rod
+handles.rb = handles.final_rb; % Distance between origin and actuator on X-Y plane
+handles.re = handles.final_re; % Radius of table
+handles.Pz = handles.final_Pz;
+handles.ls = handles.final_ls;
 
 % initialize EditText
 set(handles.edit_D,'String',num2str(handles.D));
@@ -394,7 +403,7 @@ lc=str2double(handles.edit_lc.String);
 rb=str2double(handles.edit_rb.String);
 re=str2double(handles.edit_re.String);
 Pz=str2double(handles.edit_Pz.String);
-ls = 1.1;
+ls = handles.ls;
 
 check=handles.checkbox_debug;
 
@@ -548,16 +557,11 @@ function pushbutton_set_default_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_set_default (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles.D = 0.3; % Distance between 2 slider of the pair
-handles.lc = 1.1; % Length of rod
-handles.rb = 1; % Distance between origin and actuator on X-Y plane
-handles.re = 0.4; % Radius of table
-handles.Pz = 1.1;
-set(handles.edit_D,'String',num2str(handles.D));
-set(handles.edit_lc,'String',num2str(handles.lc));
-set(handles.edit_rb,'String',num2str(handles.rb));
-set(handles.edit_re,'String',num2str(handles.re));
-set(handles.edit_Pz,'String',num2str(handles.Pz));
+set(handles.edit_D,'String',num2str(handles.final_D));
+set(handles.edit_lc,'String',num2str(handles.final_lc));
+set(handles.edit_rb,'String',num2str(handles.final_rb));
+set(handles.edit_re,'String',num2str(handles.final_re));
+set(handles.edit_Pz,'String',num2str(handles.final_Pz));
 set(handles.slider_D,'Value',handles.D);
 set(handles.slider_lc,'Value',handles.lc);
 set(handles.slider_rb,'Value',handles.rb);
