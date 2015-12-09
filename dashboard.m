@@ -456,6 +456,12 @@ function pushbutton_loadfile_Callback(hObject, eventdata, handles)
     '*.*',  'All Files (*.*)'}, ...
     'Select g-code file',getenv('HOME'));
 if(filename)
+    placeholder = sprintf(strcat(...
+        'Loading gcode... Please wait...\n',...
+        'This may take a while...'));
+    set(handles.edit_disp_gcode,'String',placeholder);
+    pause(1);
+    
     fullpath = sprintf('%s%s',pathname,filename);
     set(handles.edit_disp_filepath,'String',fullpath);
     
@@ -482,10 +488,11 @@ if(filename)
     %         'G1 X10 Y10 Z10 \n',...
     %         'G1 X10 Y10 Z10 \n',...
     %         'G1 X10 Y10 Z10 \n'));
-    
-    progressDlg = waitbar(0.8,'Loading... Please wait.');% sorry, it's a bluff!
+
+%     progressDlg = waitbar(0.8,'Loading... Please wait.');% sorry, it's a bluff!
     set(handles.edit_disp_gcode,'String',lines);
-    close(progressDlg);
+%     close(progressDlg);
+    
     
     handles.gcode = lines;
     set(handles.pushbutton_run_gcode,'Visible','On');
