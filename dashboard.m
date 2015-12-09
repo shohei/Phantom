@@ -22,7 +22,7 @@ function varargout = dashboard(varargin)
 
 % Edit the above text to modify the response to help dashboard
 
-% Last Modified by GUIDE v2.5 09-Dec-2015 12:37:40
+% Last Modified by GUIDE v2.5 09-Dec-2015 13:05:37
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -587,3 +587,71 @@ set(handles.slider_Pz,'Value',handles.Pz);
 guidata(hObject,handles);
 
 
+% --------------------------------------------------------------------
+function m_file_Callback(hObject, eventdata, handles)
+% hObject    handle to m_file (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function m_about_phantom_Callback(hObject, eventdata, handles)
+% hObject    handle to m_about_phantom (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function m_window_Callback(hObject, eventdata, handles)
+% hObject    handle to m_window (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function m_help_Callback(hObject, eventdata, handles)
+% hObject    handle to m_help (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function m_preferences_Callback(hObject, eventdata, handles)
+% hObject    handle to m_preferences (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function m_quit_Callback(hObject, eventdata, handles)
+% hObject    handle to m_quit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function m_check_update_Callback(hObject, eventdata, handles)
+% hObject    handle to m_check_update (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function m_minimize_Callback(hObject, eventdata, handles)
+% hObject    handle to m_minimize (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function m_zoom_Callback(hObject, eventdata, handles)
+% hObject    handle to m_zoom (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function m_full_screen_Callback(hObject, eventdata, handles)
+% hObject    handle to m_full_screen (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
