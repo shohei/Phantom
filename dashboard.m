@@ -599,7 +599,7 @@ function m_about_phantom_Callback(hObject, eventdata, handles)
 % hObject    handle to m_about_phantom (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+about();
 
 % --------------------------------------------------------------------
 function m_window_Callback(hObject, eventdata, handles)
