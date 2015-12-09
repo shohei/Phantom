@@ -8,10 +8,10 @@ fid = fopen(fullpath,'r');
 
 tline = fgets(fid);
 while ischar(tline)
-     if(~isempty(regexpi(tline,'^G0\s')) ...
-         || ~isempty(regexpi(tline,'^G1\s'))...
-         || ~isempty(regexpi(tline,'^G162\s')))
-        disp(tline)
+    match = regexpi(tline,'^G\d*');
+    if(~isempty(match))
+        disp(match);
+        disp(tline);
     end
     tline = fgets(fid);
 end
