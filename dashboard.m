@@ -77,6 +77,14 @@ set(handles.edit_rb,'String',num2str(handles.rb));
 set(handles.edit_re,'String',num2str(handles.re));
 set(handles.edit_Pz,'String',num2str(handles.Pz));
 
+
+% initialize Sliders
+set(handles.slider_D,'Max',handles.D*2);
+set(handles.slider_lc,'Max',handles.lc*2);
+set(handles.slider_rb,'Max',handles.rb*2);
+set(handles.slider_re,'Max',handles.re*2);
+set(handles.slider_Pz,'Max',handles.Pz*2);
+
 set(handles.slider_D,'Value',handles.D);
 set(handles.slider_lc,'Value',handles.lc);
 set(handles.slider_rb,'Value',handles.rb);
@@ -214,8 +222,6 @@ function edit_Pz_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-set(handles.slider_Pz,'Value',get(hObject,'Value'));
-guidata(hObject,handles);
 
 % --- Executes on slider movement.
 function slider_D_Callback(hObject, eventdata, handles)
@@ -240,8 +246,6 @@ function slider_D_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
-set(handles.slider_D,'Value',get(hObject,'Value'));
-guidata(hObject,handles);
 
 % --- Executes on slider movement.
 function slider_lc_Callback(hObject, eventdata, handles)
@@ -266,8 +270,6 @@ function slider_lc_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
-set(handles.slider_lc,'Value',get(hObject,'Value'));
-guidata(hObject,handles);
 
 % --- Executes on slider movement.
 function slider_rb_Callback(hObject, eventdata, handles)
@@ -292,8 +294,6 @@ function slider_rb_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
-set(handles.slider_rb,'Value',get(hObject,'Value'));
-guidata(hObject,handles);
 
 % --- Executes on slider movement.
 function slider_re_Callback(hObject, eventdata, handles)
@@ -318,8 +318,6 @@ function slider_re_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
-set(handles.slider_re,'Value',get(hObject,'Value'));
-guidata(hObject,handles);
 
 
 % --- Executes on slider movement.
@@ -346,8 +344,6 @@ function slider_Pz_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
-set(handles.slider_Pz,'Value',get(hObject,'Value'));
-guidata(hObject,handles);
 
 % --- Executes on button press in checkbox_debug.
 function checkbox_debug_Callback(hObject, eventdata, handles)
