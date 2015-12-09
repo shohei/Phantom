@@ -8,10 +8,27 @@ fid = fopen(fullpath,'r');
 
 tline = fgets(fid);
 while ischar(tline)
-    match = regexpi(tline,'^G\d*');
-    if(~isempty(match))
-        disp(match);
-        disp(tline);
+    [startIndex,endIndex] = regexp(tline,'^G\d*');
+    if(~isempty(startIndex))
+        Gcommand = tline(startIndex:endIndex);
+        switch Gcommand
+            case 'G0' % Rapid linear Move
+                disp 'linear move';
+                
+            case 'G1' % Linear Move
+                disp 'linear move';
+                
+            case 'G161' % Home axes to minimum
+                disp 'home axes';
+                
+            case 'G162' % Home axes to maximum
+                disp 'home axes';
+            case 'G92' % Set Position
+                disp 'set position';
+            case 'G130' % Set digital potentiometer value
+                disp 'do nothing';
+        end
+        %disp(tline);
     end
     tline = fgets(fid);
 end
