@@ -1,9 +1,9 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="1782066315" file="/Users/shohei/Downloads/hogetest/paramecha/Phantom.prj" location="/Users/shohei/Downloads/hogetest/paramecha" name="Phantom" preferred-package-location="/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution" preferred-package-type="package.type.app" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration build-checksum="973783166" file="/Users/shohei/Downloads/hogetest/paramecha/Phantom.prj" location="/Users/shohei/Downloads/hogetest/paramecha" name="Phantom" preferred-package-location="/Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution" preferred-package-type="package.type.app" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>Phantom</param.appname>
     <param.icon />
     <param.icons />
-    <param.version>1.3</param.version>
+    <param.version>1.4</param.version>
     <param.authnamewatermark>Shohei Aoki</param.authnamewatermark>
     <param.email>shoaok@gmail.com</param.email>
     <param.company>Keio University</param.company>
@@ -122,7 +122,7 @@
       <vista>false</vista>
       <linux>false</linux>
       <solaris>false</solaris>
-      <osver>10.11.1</osver>
+      <osver>10.11.2</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>maci64</arch>

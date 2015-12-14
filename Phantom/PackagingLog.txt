@@ -19,8 +19,8 @@ Adding custom icon /Applications/MATLAB_R2015a.app/toolbox/compiler/Resources/de
 Creating the bundle...
 Copying /Applications/MATLAB_R2015a.app/toolbox/compiler/maci64/setup.app to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app.
 Copying /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/bundle.zip to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app/Contents/Resources/bundle.zip.
-Copying /var/folders/gp/l764g7197_77rf1z02j1k9dc0000gn/T/splash7222543304755780243.tmp to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app/Contents/Resources/splash.png.
+Copying /var/folders/gp/l764g7197_77rf1z02j1k9dc0000gn/T/splash1253061108804281606.tmp to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app/Contents/Resources/splash.png.
 Copying /Applications/MATLAB_R2015a.app/toolbox/compiler/Resources/default_icon.icns to /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app/Contents/Resources/installer.icns.
 Web based installer created at /Users/shohei/Downloads/hogetest/paramecha/Phantom/for_redistribution/MyAppInstaller_web.app.
 Packaging complete.
-Elapsed packaging time was: 48 seconds.
+Elapsed packaging time was: 1 minutes and 4 seconds.
