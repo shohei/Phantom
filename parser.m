@@ -137,7 +137,7 @@ handles.runnning=0;
         Ct_rad = Ct_n*pi/180.0;
         P = [Xt_n Yt_n Pz+Zt_n];
         
-        C = main(D,lc,ls,rb,re,P,At_rad,Bt_rad,Ct_rad);
+        C = computeSliderControl(D,lc,ls,rb,re,P,At_rad,Bt_rad,Ct_rad);
         %         if check==1
         %             showDebugMessage(i_time,phi,theta,psi,C);
         %         end

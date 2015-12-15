@@ -38,7 +38,7 @@ for i_time=1:n_time
     phi = pi/12*(i_time/10); % rotation around X axis
     theta = pi/12*(i_time/10); % rotation around Y axis
     psi = pi/16*(i_time/10); % rotation around Z axis  
-    main(D,lc,ls,rb,re,P,phi,theta,psi);    
+    computeSliderControl(D,lc,ls,rb,re,P,phi,theta,psi);    
     drawnow;
 end
 

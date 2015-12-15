@@ -418,7 +418,7 @@ for i_time=1:n_time
     phi = pi/12*(i_time/10); % rotation around X axis
     theta = pi/12*(i_time/10); % rotation around Y axis
     psi = pi/16*(i_time/10); % rotation around Z axis
-    C = main(D,lc,ls,rb,re,P,phi,theta,psi);
+    C = computeSliderControl(D,lc,ls,rb,re,P,phi,theta,psi);
     if check==1
         showDebugMessage(handles,i_time,phi,theta,psi,C);
     end
