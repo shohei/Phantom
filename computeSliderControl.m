@@ -1,7 +1,7 @@
 %% PARALLEL LINK MECHANISM SIMULATOR
 % Coded by Shohei Aoki, 2015
 % THE FABRICATOR PROJECT
-function C = main(D,lc,ls,rb,re,P,phi,theta,psi)
+function C = computeSliderControl(D,lc,ls,rb,re,P,phi,theta,psi)
 %clear;
 %clear all;
 %P = [0.1,0.2,1.1]; % Position Vector of the end effector
