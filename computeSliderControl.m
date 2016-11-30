@@ -49,7 +49,7 @@ R = [
     sin(phi)*cos(theta),sin(phi)*sin(theta)*sin(psi)+cos(phi)*cos(psi),sin(phi)*sin(theta)*cos(psi)-cos(phi)*sin(psi);
     -sin(theta),cos(theta)*sin(psi),cos(theta)*cos(psi);
     ]; % Rotation matrix (!!! is not Euler angle !!!)
-s = s_local*R';
+s = s_local*R'; %not needed
 a = [0,0,1];
 %figure(1);
 L = computeLinkPos(P,R,s,pb);
@@ -71,7 +71,8 @@ drawSliders();
         ];
         %}
         for n_slider=1:6
-            L(n_slider,:) = P + (R*s(n_slider,:)')' - pb(n_slider,:);
+%             L(n_slider,:) = P + (R*s(n_slider,:)')' - pb(n_slider,:);
+            L(n_slider,:) = P + (R*s_local(n_slider,:)')' - pb(n_slider,:);
         end
     end
 %% compute required actuation
